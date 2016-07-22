@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../static/main.css" media="screen" title="no title" charset="utf-8">
+    <title>Giriş Yap</title>
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+    <script>function do_some_ajax(){
+    jQuery.ajax({
+        url     : 'ajax_view',
+        type    : 'POST',
+        dataType: 'json',
+        success : function(data){                                     //***
+            alert("Success. Got the message:\n "+ data.message)       //***
+        }                                                             //***
+    });
+}</script>
+  </head>
+  <body>
+
+    <div class="container main">
+        <h1>İlkel Twitter</h1>
+        <h3>Giriş Yap</h3>
+        <form method="post" action="" id="loginForm">
+          <input type="text" name="username" placeholder="Kullanıcı Adı :" value="{{request.form.username}}">
+          <input type="password" name="password" placeholder="Parola :" value="{{request.form.password}}">
+          <button type="submit">Giriş Yap</button>
+        </form>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-5">
+            {% if error %}
+              <p class="bg-danger text-center hiza">{{error}}</p>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+<script>
+  $("#loginForm").submit(function(){
+    $.ajax({
+      url: '/login', // Gideceğiz adres
+      method: 'POST', // Metot
+      data: $(this).serialize(), // Formda girilen verileri kullan
+      dataType: 'JSON', // Bize JSON veri gelecek diye belirt
+      success: function(data){
+        if(data.status){ // Eğer gelen JSOn'da status değeri true(doğru) ise
+          alert("Başarıyla giriş yaptınız!"); // giriş yaptınız de
+          window.location = ''; // yönlendir
+        } else {
+          alert(data.error); // Eğer hatalıysa, JSON'dan gelen error'u göster
+        }
+      }
+    });
+  });
+</script>
+  </body>
+</html>
