@@ -1,7 +1,8 @@
 #from .models import User, Post
-from flask import Flask, request, session, redirect, url_for, render_template, flash
+from flask import Flask, request, session, redirect, url_for, render_template, flash, send_from_directory
+from flask_login import LoginManager, UserMixin,login_required, login_user,logout_user
+
 app = Flask(__name__)
-from flask.ext.login import LoginManager, UserMixin,login_required, login_user,logout_user
 
 @app.route('/register', methods= ['POST'])
 def doLogin():
@@ -55,9 +56,14 @@ def like(postId):
 def follow(kullaniciAdi):
     pass
 
-@app.route('/<kullaniciAdi>', methods=['GET'])
+@app.route('/user/<kullaniciAdi>', methods=['GET'])
 def profile(kulllaniciAdi):
     pass
 
+@app.route('/', methods= ['GET'])
+def homepage():
+    return render_template('index.html')
 
-
+@app.route('/assets/<path:path>')
+def send_js(path):
+    return send_from_directory('static/assets', path)
