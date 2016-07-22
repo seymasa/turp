@@ -14,3 +14,17 @@ body { background: #renk }
 .panel-profile .btn {
     margin-bottom: 10px;
 }
+
+.turp-button {
+    font-size: inherit;
+}
+
+.input-arreglo-group{
+    padding: 0;
+}
+.input-arreglo-group button{
+    margin-top: 0px;
+    height: calc(100% + 15px);
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
