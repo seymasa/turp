@@ -1,26 +1,44 @@
 #from .models import User, Post
 from flask import Flask, request, session, redirect, url_for, render_template, flash, send_from_directory
 from flask_login import LoginManager, UserMixin,login_required, login_user,logout_user
+from .models import User, Post
 
 app = Flask(__name__)
 
-@app.route('/register', methods= ['POST'])
+@app.route('/login', methods= ['POST'])
 def doLogin():
-    """"    error = None
-if request.method == 'POST':
-       if request.form['username'] != #app.config['Username']:
-           error = 'Kullanıcı Adı Yanlış'
-       elif request.form['password'] != #app.config['Password']:
-           error = 'Parola Yanlış'
-       else:
-           session['logged_in'] = True
-           flash('Mis gibi giriş yaptınız :)')
-           return redirect(url_for('index'))
-   return render_template('login.html', error=error) """
-    pass
+    if request.method == 'POST':
+        username=request.form["username"]
+        password = request.form["password"]
+
+        if len(username) <1:
+            error ='Kullanıcı adın 1 karakterden küçük olamaz'
+        elif len(password) <5:
+            error = 'Parola 6 karakterden küçük olamaz'
+        else:
+            session['username'] = username
+            flash("LOGGEND IN.")
+            return redirect(url_for('index.html'))
 @app.route('/login', methods= ['GET'])
 def login():
     return render_template('login.html')
+
+@app.route('/register', methods=['GET'])
+def register():
+    error= None
+    return render_template('register.html')
+
+@app.route('/register', methods=['POST'])
+def doRegister():
+    errors   = None
+    name     = request.form['name']
+    username = request.form['username']
+    email    = request.form['email']
+    password = request.form['password']
+    confirm  = request.form['confirm']
+
+    print("Hoş Geldin", username)
+    return redirect(url_for('register'))
 
 @app.route("/logout")
 @login_required
@@ -28,9 +46,26 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/post', methods=['POST'])
+@app.route('/add-post', methods=['POST'])
 def post():
-    pass
+    text = request.form('text')
+    if not text:
+        abort(141, 'You must be logged in to add a post.')
+    User(session('username')).add_past(text)
+    return redirect(url_for('layout'))
+
+@app.route('/like_post/<post_id>')
+def like_post(post_id):
+    username =session.get('username')
+
+    if not username:
+        abort(141,'You must be logged in to like a post.')
+
+    User(username).like_post(post_id)
+
+    flash('Liked Post!')
+    return redirect(request.referrer)
+
 
 @app.route('/account-settings', methods=['GET'])
 def accountSettings():
@@ -40,13 +75,9 @@ def accountSettings():
 def updateAccount():
     pass
 
-@app.route('/register', methods=['POST'])
-def doRegister():
-    pass
 
-@app.route('/Register', methods=['GET'])
-def register():
-    pass
+
+    """"""
 
 @app.route('/<postId>/like', methods=['GET'])
 def like(postId):

@@ -2,7 +2,8 @@
     list-style: none;
     padding-left: 0px;
 }
-body { background: #renk }
+body { background: rgb(225, 235, 228);
+}
 .no-padding {
     padding: 0;
 }
@@ -27,4 +28,18 @@ body { background: #renk }
     height: calc(100% + 15px);
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
+}
+.like_post {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+.panel-submit .panel-body{
+    background-color: rgb(191, 255, 210) ;
+}
+.panel-submit .form-control{
+    background-color: rgb(225, 230, 228);
+}
+.panel-footer{
+    background-color: rgb(225, 230, 228);
 }
