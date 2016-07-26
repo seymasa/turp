@@ -21,6 +21,7 @@ def doLogin():
             print("Giriş Yapıldı", username)
             return redirect(url_for("homepage"))
         return render_template('login.html', error=error)
+        print(error)
 
 @app.route('/login', methods= ['GET'])
 def login():
