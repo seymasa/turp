@@ -18,7 +18,8 @@ def doLogin():
         else:
             session['username'] = username
             flash("LOGGEND IN.")
-            return redirect(url_for('index.html'))
+        return render_template('index.html')
+
 @app.route('/login', methods= ['GET'])
 def login():
     return render_template('login.html')
