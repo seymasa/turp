@@ -38,7 +38,7 @@ def doRegister():
     confirm  = request.form['confirm']
 
     print("Hoş Geldin", username)
-    return redirect(url_for('register'))
+    return redirect(url_for('login'))
 
 @app.route("/logout")
 @login_required
@@ -87,8 +87,31 @@ def like(postId):
 def follow(kullaniciAdi):
     pass
 
-@app.route('/user/<kullaniciAdi>', methods=['GET'])
-def profile(kulllaniciAdi):
+@app.route('/profile/<username>', methods=['GET'])
+def profile(username):
+    """
+    posts = get_users_recent_posts(username)
+
+    similar= []
+    common = []
+
+    viewer_username = session.get('username')
+
+    if viewer_username:
+        viewer= User(viewer_username)
+
+        if viewer.username == username:
+            similar = viewer.get_similar_users()
+        else:
+        common = viewer.get_commanality_of_user(username)
+    return render_template(
+        'profile.html',
+        username= username,
+        posts= posts,
+        similar= similar,
+        common= common
+        )
+    """
     pass
 
 @app.route('/', methods= ['GET'])
