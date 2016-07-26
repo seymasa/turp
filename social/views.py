@@ -11,15 +11,16 @@ def doLogin():
         username=request.form["username"]
         password = request.form["password"]
 
-        if len(username) <1:
-            error ='Kullanıcı adın 1 karakterden küçük olamaz'
+        if len(username) <5:
+            error ='Kullanıcı adın 6 karakterden küçük olamaz!'
         elif len(password) <5:
-            error = 'Parola 6 karakterden küçük olamaz'
+            error = 'Parola 6 karakterden küçük olamaz!'
         else:
             session['username'] = username
             flash("LOGGEND IN.")
-        print("Giriş Yapıldı", username)
-        return render_template('index.html')
+            print("Giriş Yapıldı", username)
+            return redirect(url_for("homepage"))
+        return render_template('login.html', error=error)
 
 @app.route('/login', methods= ['GET'])
 def login():
