@@ -18,6 +18,7 @@ def doLogin():
         else:
             session['username'] = username
             flash("LOGGEND IN.")
+        print("Giriş Yapıldı", username)
         return render_template('index.html')
 
 @app.route('/login', methods= ['GET'])
@@ -38,13 +39,14 @@ def doRegister():
     password = request.form['password']
     confirm  = request.form['confirm']
 
-    print("Hoş Geldin", username)
+    print("KAYDINIZ TAMAMLANDI Syn.", username)
     return redirect(url_for('login'))
 
 @app.route("/logout")
 @login_required
 def logout():
-    logout_user()
+    session.pop('username', None)
+    flash('Logged out.')
     return redirect(url_for('login'))
 
 @app.route('/add-post', methods=['POST'])
