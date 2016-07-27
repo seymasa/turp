@@ -16,7 +16,8 @@ class User:
         user = graph.find_one("User", "username", self.username) # User etiketli noktalardan, username sütunu self.username 'e eşit olanı getir (find_one) = (bir tane getir)
         return user
 
-    def register(self, password):
+    def register(self, password, name_surname, email, ):
+        # zaten modelde biz şifreliyormuşuz. yani metota 123456 gönderince o şifreleyip veritabanına kaydediyormuş. O yüzden tekrar şifrelemiyfcez
         if not self.find(): # Eğer bu kullanıcı adından kimse yoksa, kayıt yap
             user = Node('User', username=self.username, password=bcrypt.encrypt(password))
             graph.create(user)

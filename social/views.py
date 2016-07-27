@@ -1,7 +1,7 @@
 #from .models import User, Post
 from flask import Flask, request, session, redirect, url_for, render_template, flash, send_from_directory
 from flask_login import LoginManager, UserMixin,login_required, login_user,logout_user
-from .models import User, Post
+from .models import User, Post # User modelini import ettik
 
 app = Flask(__name__)
 
@@ -33,18 +33,29 @@ def register():
     return render_template('register.html')
 
 @app.route('/register', methods=['POST'])
-def doRegister():
-    errors   = None
-    name     = request.form['name']
-    username = request.form['username']
-    email    = request.form['email']
-    password = request.form['password']
-    confirm  = request.form['confirm']
+def doRegister(): # Kayıt ol formu gönderince burası çağırılıyor
+    errors       = None
+    name_surname = request.form['name-surname']
+    username     = request.form['username']
+    email        = request.form['email']
+    password     = request.form['password']
+    confirm      = request.form['confirm']
 
     if(password != confirm):
-        errors = "Şifre ve şifre tekrarı uyuşmamakta"
+        errors = "Parola ve parola tekrarı uyuşmamakta"
 
+    if (name_surname != password):
+        errors = "Parolanız adınız ve soyadınız ile aynı olamaz!"
     if(errors == None):
+        # Eğer herhangi bir hata yoksa(şifre ve şifre tekrarı aynıysa, kullanıcı adı doluysa vs.) kayıt işlemine başlayabiliriz.
+
+        # User modelimizde register() diye bir metot var ve o Nokta oluşturuyor fakat oluşturacağı kullanıcı adını modelin başlatıcısından alıyor. Hani construct diye bir şey vardı ya Java'da işte o.
+        user = User(username) # Kullanıcıdan gelen (formdan) kullanıcı adıyla User'ı başlatıyoruz. == User("seymasa") gibi
+        # bunları register'a vermen lazım başlatıcıya değil. Yoksa her kullanıcıyla işlem yapman gerektiğinde ad soyad vs göndermen gerekecek
+
+        # Artık user modelimize nesne oluşturduğumuza göre .register() metotunu kullanabiliriz.
+        user.register(password, name_surname, email ) # ilk parametre olarak oluşturulacak User noktasının olacağı şifreyi istiyor. Bu şifreyi de kullanıcıdan aldığımız şifreyle yapacağız.
+        # bu kadar bitti
         print("KAYDINIZ TAMAMLANDI Syn.", username)
         return redirect(url_for('login'))
     else:
