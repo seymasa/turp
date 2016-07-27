@@ -16,10 +16,10 @@ class User:
         user = graph.find_one("User", "username", self.username) # User etiketli noktalardan, username sütunu self.username 'e eşit olanı getir (find_one) = (bir tane getir)
         return user
 
-    def register(self, password, name_surname, email, ):
+    def register(self, password, name_surname, email):
         # zaten modelde biz şifreliyormuşuz. yani metota 123456 gönderince o şifreleyip veritabanına kaydediyormuş. O yüzden tekrar şifrelemiyfcez
         if not self.find(): # Eğer bu kullanıcı adından kimse yoksa, kayıt yap
-            user = Node('User', username=self.username, password=bcrypt.encrypt(password))
+            user = Node('User', username=self.username, password=bcrypt.encrypt(password), name=name_surname, email=email)
             graph.create(user)
             return True
         else:
@@ -41,11 +41,15 @@ class User:
         delta = now - epoch
         return delta.total_seconds()  """
 
-    def date():
-        return datetime.now().strftime('%Y-%m-%d')
+    def date(self):
+        #return datetime.now().strftime('%Y-%m-%d')
+        pass
+
 
     def login_check(self, password):
-        if (Node('User', username=self.username, password=bcrypt.encrypt(password))):
+        user = self.find()
+
+        if(user["password"] == bcrypt.encrypt(password)):
             return True
         else:
             return False
@@ -56,5 +60,5 @@ class Post:
         pass
 
     def like(self, user, post_id):
-        post= graph.find_one("Post", "id", post_id)
+        post = graph.find_one("Post", "id", post_id)
         graph.create_unique(Relationship(user, "LIKED", post))

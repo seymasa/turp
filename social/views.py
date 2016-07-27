@@ -8,34 +8,30 @@ app = Flask(__name__)
 @app.route('/login', methods= ['POST'])
 def doLogin():
     if request.method == 'POST':
-        username=request.form["username"]
+        username = request.form["username"]
         password = request.form["password"]
 
+        print(username, "-", password)
+        print(User(username).login_check(password))
+"""
         if len(username) <5:
             error ='Kullanıcı adın 6 karakterden küçük olamaz!'
         elif len(password) <5:
             error = 'Parola 6 karakterden küçük olamaz!'
+        elif not User(username).login_check(password):
+            error = 'Kullanıcı adı veya şifre hatalı!'
         else:
             session['username'] = username
             flash("LOGGEND IN.")
             print("Giriş Yapıldı", username)
             return redirect(url_for("homepage"))
         return render_template('login.html', error=error)
-        print(error)
-
-@app.route('/login', methods= ['GET'])
-def login():
-    return render_template('login.html')
-
-@app.route('/register', methods=['GET'])
-def register():
-    error= None
-    return render_template('register.html')
+        """
 
 @app.route('/register', methods=['POST'])
 def doRegister(): # Kayıt ol formu gönderince burası çağırılıyor
     errors       = None
-    name_surname = request.form['name-surname']
+    name = request.form['name']
     username     = request.form['username']
     email        = request.form['email']
     password     = request.form['password']
@@ -44,7 +40,8 @@ def doRegister(): # Kayıt ol formu gönderince burası çağırılıyor
     if(password != confirm):
         errors = "Parola ve parola tekrarı uyuşmamakta"
 
-    if (name_surname != password):
+    if (name == password):
+        # != demişsin == olacak
         errors = "Parolanız adınız ve soyadınız ile aynı olamaz!"
     if(errors == None):
         # Eğer herhangi bir hata yoksa(şifre ve şifre tekrarı aynıysa, kullanıcı adı doluysa vs.) kayıt işlemine başlayabiliriz.
@@ -54,13 +51,21 @@ def doRegister(): # Kayıt ol formu gönderince burası çağırılıyor
         # bunları register'a vermen lazım başlatıcıya değil. Yoksa her kullanıcıyla işlem yapman gerektiğinde ad soyad vs göndermen gerekecek
 
         # Artık user modelimize nesne oluşturduğumuza göre .register() metotunu kullanabiliriz.
-        user.register(password, name_surname, email ) # ilk parametre olarak oluşturulacak User noktasının olacağı şifreyi istiyor. Bu şifreyi de kullanıcıdan aldığımız şifreyle yapacağız.
+        user.register(password, name, email,) # ilk parametre olarak oluşturulacak User noktasının olacağı şifreyi istiyor. Bu şifreyi de kullanıcıdan aldığımız şifreyle yapacağız.
         # bu kadar bitti
-        print("KAYDINIZ TAMAMLANDI Syn.", username)
         return redirect(url_for('login'))
     else:
         return render_template("register.html", errors=errors)
 
+
+@app.route('/login', methods= ['GET'])
+def login():
+    return render_template('login.html')
+
+@app.route('/register', methods=['GET'])
+def register():
+    error= None
+    return render_template('register.html')
 
 @app.route("/logout")
 @login_required
