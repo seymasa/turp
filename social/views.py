@@ -13,20 +13,19 @@ def doLogin():
 
         print(username, "-", password)
         print(User(username).login_check(password))
-"""
-        if len(username) <5:
-            error ='Kullanıcı adın 6 karakterden küçük olamaz!'
-        elif len(password) <5:
-            error = 'Parola 6 karakterden küçük olamaz!'
-        elif not User(username).login_check(password):
-            error = 'Kullanıcı adı veya şifre hatalı!'
+
+        if not User(username).login_check(password):
+            error = 'Şifre hatalı!'
+
+        elif not User(username).login_use(username):
+            error = 'Kullanıcı adı hatalı!'
         else:
             session['username'] = username
             flash("LOGGEND IN.")
             print("Giriş Yapıldı", username)
             return redirect(url_for("homepage"))
-        return render_template('login.html', error=error)
-        """
+    return render_template('login.html', error=error)
+
 
 @app.route('/register', methods=['POST'])
 def doRegister(): # Kayıt ol formu gönderince burası çağırılıyor

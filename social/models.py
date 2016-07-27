@@ -35,6 +35,7 @@ class User:
         rel = Relationship(user, "POSTED_BY", post)  # oluşturulan post ile fonksiyon çağırılırken ki user bağlansın
         graph.create(rel)  # bu bağlantıyı oluştur.
 
+
     """def timestamp():
         epoch = datetime.utcfromtimestamp(0)
         now = datetime.now()
@@ -47,10 +48,18 @@ class User:
 
 
     def login_check(self, password):
-        user = self.find()
 
-        if(user["password"] == bcrypt.encrypt(password)):
-            return True
+        user = self.find()
+        if user: # Önceden eklediğim verileri sildim çünkü parolalarda sıkıntı çıkartacaktı bu şekilde doğru olur..
+            return bcrypt.verify(password, user['password'])
+        else:
+            return False
+
+    def login_use(self, username):
+
+        user = self.find()
+        if user:
+            return user['username']
         else:
             return False
 
