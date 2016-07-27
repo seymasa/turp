@@ -41,8 +41,15 @@ def doRegister():
     password = request.form['password']
     confirm  = request.form['confirm']
 
-    print("KAYDINIZ TAMAMLANDI Syn.", username)
-    return redirect(url_for('login'))
+    if(password != confirm):
+        errors = "Şifre ve şifre tekrarı uyuşmamakta"
+
+    if(errors == None):
+        print("KAYDINIZ TAMAMLANDI Syn.", username)
+        return redirect(url_for('login'))
+    else:
+        return render_template("register.html", errors=errors)
+
 
 @app.route("/logout")
 @login_required
@@ -96,15 +103,11 @@ def follow(kullaniciAdi):
 def profile(username):
     """
     posts = get_users_recent_posts(username)
-
     similar= []
     common = []
-
     viewer_username = session.get('username')
-
     if viewer_username:
         viewer= User(viewer_username)
-
         if viewer.username == username:
             similar = viewer.get_similar_users()
         else:
