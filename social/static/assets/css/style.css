@@ -43,3 +43,11 @@ body { background: rgb(225, 235, 228);
 .panel-footer{
     background-color: rgb(225, 230, 228);
 }
+
+.sidebar_rightp.ex {
+    height: 100px;
+    width: 100px;
+}
+.posts li {
+    margin: 1.8em 1.2em;
+}

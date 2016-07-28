@@ -73,14 +73,16 @@ def logout():
     flash('Logged out.')
     return redirect(url_for('login'))
 
-@app.route('/add-post', methods=['POST'])
+@app.route('/add_post', methods=['POST'])
 def post():
-    text = request.form('text')
+    text = request.form['turpMesaj']
     if not text:
-        abort(141, 'You must be logged in to add a post.')
-    User(session('username')).add_past(text)
-    return redirect(url_for('layout'))
+        flash('Bisiler yazmadan gönderemezsin')
+    else:
+        User(session['username']).post(text)
+    return redirect(url_for('post' """,'metin','isim','tarih'"""))
 
+"""
 @app.route('/like_post/<post_id>')
 def like_post(post_id):
     username =session.get('username')
@@ -92,7 +94,7 @@ def like_post(post_id):
 
     flash('Liked Post!')
     return redirect(request.referrer)
-
+"""
 
 @app.route('/account-settings', methods=['GET'])
 def accountSettings():
