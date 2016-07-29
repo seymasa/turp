@@ -5,7 +5,7 @@ function  Turpla()
 {
   $.ajax({
             url: '/post',
-            data: "turpMesaj="+$('#txtTurpMesaj').text(),
+            data: "turpMesaj="+$('#txtTurpMesaj').val(),
             type: 'POST',
             success: function(response) {
                    $('#turpListesi').prepend(response);

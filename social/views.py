@@ -80,7 +80,7 @@ def post():
         flash('Bisiler yazmadan gönderemezsin')
     #else:
       #  User(session['username']).post(text)
-    return render_template('post.html')
+    return render_template('post.html', username=session.get('username'), text=text)
 
 """
 @app.route('/like_post/<post_id>')
