@@ -56,6 +56,15 @@ def doRegister(): # Kayıt ol formu gönderince burası çağırılıyor
     else:
         return render_template("register.html", errors=errors)
 
+@app.route('/post', methods=['POST'])
+def post():
+    text = request.form['turpMesaj']
+    if not text:
+        flash('Bisiler yazmadan gönderemezsin')
+    else:
+        User(session['username']).post(text)
+    return render_template('post.html', username=session.get('username'), text=text)
+
 
 @app.route('/login', methods= ['GET'])
 def login():
@@ -72,15 +81,6 @@ def logout():
     session.pop('username', None)
     flash('Logged out.')
     return redirect(url_for('login'))
-
-@app.route('/post', methods=['POST'])
-def post():
-    text = request.form['turpMesaj']
-    if not text:
-        flash('Bisiler yazmadan gönderemezsin')
-    #else:
-      #  User(session['username']).post(text)
-    return render_template('post.html', username=session.get('username'), text=text)
 
 """
 @app.route('/like_post/<post_id>')
