@@ -1,6 +1,11 @@
-<li>
-    <a href="{{ url_for('index', username=row.username) }}">{{ row.username }}</a>
-    on {{ row.post.date }}
-    <a href="{{ url_for('like_post', post_id=row.post.id) }}">like</a><br>
-    {{ row.post.text }}
-  <li>
+      <div class="media">
+         <div class="media-left">
+            <a href="#">
+            <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
+            </a>
+         </div>
+         <div class="media-body">
+            <h4 class="media-heading">Kemal can kara</h4>
+            <p>asdasdasdasdasd sad asd sad</p>
+         </div>
+      </div>

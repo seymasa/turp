@@ -1,13 +1,14 @@
 /**
  * Created by seymas on 7/28/2016.
  */
-$("#turp-form").submit(function(){
+function  Turpla()
+{
   $.ajax({
-            url: '/signUpUser',
-            data: "message="+message,
+            url: '/post',
+            data: "turpMesaj="+$('#txtTurpMesaj').text(),
             type: 'POST',
             success: function(response) {
-                   $('#postListesi').prepend(response);
+                   $('#turpListesi').prepend(response);
             },
             error: function(error) {
                 console.log(error);

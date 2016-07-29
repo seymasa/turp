@@ -73,14 +73,14 @@ def logout():
     flash('Logged out.')
     return redirect(url_for('login'))
 
-@app.route('/add_post', methods=['POST'])
+@app.route('/post', methods=['POST'])
 def post():
     text = request.form['turpMesaj']
     if not text:
         flash('Bisiler yazmadan gönderemezsin')
-    else:
-        User(session['username']).post(text)
-    return redirect(url_for('post' """,'metin','isim','tarih'"""))
+    #else:
+      #  User(session['username']).post(text)
+    return render_template('post.html')
 
 """
 @app.route('/like_post/<post_id>')
