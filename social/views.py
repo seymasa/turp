@@ -137,7 +137,10 @@ def profile(username):
 
 @app.route('/', methods= ['GET'])
 def homepage():
-    return render_template("index.html")
+    if not session.get('username'):
+        return redirect(url_for('login'))
+    else:
+        return render_template("index.html")
 
 @app.route('/assets/<path:path>')
 def send_js(path):
