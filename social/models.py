@@ -21,11 +21,12 @@ class User:
         if not self.find(): # Eğer bu kullanıcı adından kimse yoksa, kayıt yap
             user = Node('User', username=self.username, password=bcrypt.encrypt(password), name=name_surname, email=email)
             graph.create(user)
+
             return True
         else:
             return False
 
-    def post(self, user, content):  # Post.add çağırılırken kullanıcı ve içerik belirtilsin
+    def post(self, content):  # Post.add çağırılırken kullanıcı ve içerik belirtilsin
         user = self.find()
         post = Node(
             "Post",

@@ -1,7 +1,7 @@
 /**
  * Created by seymas on 7/28/2016.
  */
-function  Turpla()
+function Turpla()
 {
   $.ajax({
             url: '/post',
