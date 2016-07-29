@@ -104,10 +104,6 @@ def accountSettings():
 def updateAccount():
     pass
 
-
-
-    """"""
-
 @app.route('/<postId>/like', methods=['GET'])
 def like(postId):
     pass
@@ -141,7 +137,7 @@ def profile(username):
 
 @app.route('/', methods= ['GET'])
 def homepage():
-    return render_template('index.html')
+    return render_template("index.html")
 
 @app.route('/assets/<path:path>')
 def send_js(path):

@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="container">
+<div class="container" xmlns="http://www.w3.org/1999/html">
    <div class="row">
       <div class="col-md-2">
          <div class="panel panel-info panel-profile">
@@ -65,6 +65,7 @@
          </ul>
       </div>
       <div class="col-md-6">
+      <form
          <div class="panel panel-info panel-submit">
             <div class="panel-heading">
                <h3 class="panel-title">Şimdi Turpla !</h3>
@@ -73,7 +74,7 @@
                <div class="input-group">
                   <textarea class="form-control" id="txtTurpMesaj" placeholder="Paylaş..."></textarea>
                   <div class="input-group-addon input-arreglo-group">
-                     <a href="javascript:Turpla()" class="btn btn-info">Turpla</a>
+                     <button type= "submit" class="btn btn-info">Turpla</button>
                   </div>
                </div>
                <!-- /input-group -->
@@ -117,7 +118,7 @@
          <div class="archive ">
             <aside class="sidebar_right">
                <header>
-                  <h5 class="nav__title "><i class=media-heading"></i> İLGİNİ ÇEKEBİLECEK POSTLAR </h5>
+                  <h5 class="nav__title "><i class="media-heading"></i> İLGİNİ ÇEKEBİLECEK POSTLAR </h5>
                </header>
                <ul class="like_post " >
                   <li>
