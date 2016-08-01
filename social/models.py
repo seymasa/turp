@@ -33,8 +33,9 @@ class User:
             id=str(uuid.uuid4()),
             text=content
         )  # post noktası oluşturulsun
-        rel = Relationship(user, "POSTED_BY", post)  # oluşturulan post ile fonksiyon çağırılırken ki user bağlansın
+        rel = Relationship(post, "POSTED_BY", user)  # oluşturulan post ile fonksiyon çağırılırken ki user bağlansın
         graph.create(rel)  # bu bağlantıyı oluştur.
+
 
 
     """def timestamp():
@@ -65,10 +66,18 @@ class User:
             return False
 
 
+"""
+    def like(self, post_id, user_id):
+        user = graph.node(user_id)
+        post = graph.node(post_id)
+        rels = graph.match_one(start_node=user, end_node=post, rel_type="LIKE")
+        if not rels:
+            graph.create(rels(user, "LIKE", post))
+"""
+
 class Post:
     def __init__(self):
         pass
 
-    def like(self, user, post_id):
-        post = graph.find_one("Post", "id", post_id)
-        graph.create_unique(Relationship(user, "LIKED", post))
+    #def call(self):
+     #   graph.cypher.execute("MATCH (p: POST))")

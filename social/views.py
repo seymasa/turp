@@ -5,6 +5,7 @@ from .models import User, Post # User modelini import ettik
 
 app = Flask(__name__)
 
+
 @app.route('/login', methods= ['POST'])
 def doLogin():
     if request.method == 'POST':
@@ -66,6 +67,11 @@ def post():
     return render_template('post.html', username=session.get('username'), text=text)
 
 
+@app.route('/call', methods=['POST'])
+def call():
+    pass
+
+
 @app.route('/login', methods= ['GET'])
 def login():
     return render_template('login.html')
@@ -81,21 +87,19 @@ def logout():
     session.pop('username', None)
     flash('Logged out.')
     return redirect(url_for('login'))
-
 """
-@app.route('/like_post/<post_id>')
-def like_post(post_id):
-    username =session.get('username')
+@app.route('/like/<post_id>')
+def like(post_id):
+    username = session.get('username')
 
     if not username:
-        abort(141,'You must be logged in to like a post.')
+        abort(141, 'You must be logged in to like a post.')
 
     User(username).like_post(post_id)
 
     flash('Liked Post!')
     return redirect(request.referrer)
 """
-
 @app.route('/account-settings', methods=['GET'])
 def accountSettings():
     pass
