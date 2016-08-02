@@ -12,9 +12,15 @@ class User:
     def __init__(self, username):
         self.username = username
 
+
+
+
     def find(self):
         user = graph.find_one("User", "username", self.username) # User etiketli noktalardan, username sütunu self.username 'e eşit olanı getir (find_one) = (bir tane getir)
         return user
+
+
+
 
     def register(self, password, name_surname, email):
         # zaten modelde biz şifreliyormuşuz. yani metota 123456 gönderince o şifreleyip veritabanına kaydediyormuş. O yüzden tekrar şifrelemiyfcez
@@ -25,6 +31,9 @@ class User:
             return True
         else:
             return False
+
+
+
 
     def post(self, content):  # Post.add çağırılırken kullanıcı ve içerik belirtilsin
         user = self.find()
@@ -38,15 +47,15 @@ class User:
 
 
 
-    """def timestamp():
-        epoch = datetime.utcfromtimestamp(0)
-        now = datetime.now()
-        delta = now - epoch
-        return delta.total_seconds()  """
 
-    def date(self):
-        #return datetime.now().strftime('%Y-%m-%d')
-        pass
+    def like(self, postId, username):
+        user = self.find()
+        post = graph.node(postId)
+        rel = Relationship(user, "LIKE", post)
+        if not rel:
+            graph.create(rel(username, "LIKE", post))
+
+
 
 
     def login_check(self, password):
@@ -57,6 +66,9 @@ class User:
         else:
             return False
 
+
+
+
     def login_use(self, username):
 
         user = self.find()
@@ -66,14 +78,7 @@ class User:
             return False
 
 
-"""
-    def like(self, post_id, user_id):
-        user = graph.node(user_id)
-        post = graph.node(post_id)
-        rels = graph.match_one(start_node=user, end_node=post, rel_type="LIKE")
-        if not rels:
-            graph.create(rels(user, "LIKE", post))
-"""
+
 
 class Post:
     def __init__(self):

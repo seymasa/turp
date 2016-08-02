@@ -1,51 +1,48 @@
 {% extends "layout.html" %}
 <ul id="postListesi" class="posts">
-{% for row in posts %}
-  <li>
+   {% for row in posts %}
+   <li>
       {% if request.path == "/" %}
-    by <a href="{{ url_for('index', username=row.username) }}">{{ row.username }}</a>
+      by <a href="{{ url_for('index', username=row.username) }}">{{ row.username }}</a>
       {% endif %}
-    on {{ row.post.date }}
-    <a href="{{ url_for('like_post', post_id=row.post.id) }}">like</a><br>
-    {{ row.post.text }}
-{% else %}
-  <li>Henüz Post yok!
-{% endfor %}
+      on {{ row.post.date }}
+      <a href="{{ url_for('like_post', post_id=row.post.id) }}">like</a><br>
+      {{ row.post.text }}
+      {% else %}
+   <li>Henüz Post yok!
+      {% endfor %}
 </ul>
 {% block body %}
-
-
-
-      <div class="media">
-         <div class="media-left">
-            <a href="#">
-            <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
-            </a>
-         </div>
-         <div class="media-body">
-            <h4 class="media-heading">Seyma SARIGİL</h4>
-            <p>...</p>
-         </div>
-      </div>
-      <div class="media">
-         <div class="media-left">
-            <a href="#">
-            <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
-            </a>
-         </div>
-         <div class="media-body">
-            <h4 class="media-heading">Seyma SARIGİL</h4>
-            <p>...</p>
-         </div>
-      </div>
-      <div class="media">
-         <div class="media-left">
-            <a href="#">
-            <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
-            </a>
-         </div>
-         <div class="media-body">
-            <h4 class="media-heading">Seyma SARIGİL</h4>
-            <p>...</p>
-         </div>
-      </div>
+<div class="media">
+   <div class="media-left">
+      <a href="#">
+      <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
+      </a>
+   </div>
+   <div class="media-body">
+      <h4 class="media-heading">Seyma SARIGİL</h4>
+      <p>...</p>
+   </div>
+</div>
+<div class="media">
+   <div class="media-left">
+      <a href="#">
+      <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
+      </a>
+   </div>
+   <div class="media-body">
+      <h4 class="media-heading">Seyma SARIGİL</h4>
+      <p>...</p>
+   </div>
+</div>
+<div class="media">
+   <div class="media-left">
+      <a href="#">
+      <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
+      </a>
+   </div>
+   <div class="media-body">
+      <h4 class="media-heading">Seyma SARIGİL</h4>
+      <p>...</p>
+   </div>
+</div>

@@ -6,6 +6,7 @@ from .models import User, Post # User modelini import ettik
 app = Flask(__name__)
 
 
+
 @app.route('/login', methods= ['POST'])
 def doLogin():
     if request.method == 'POST':
@@ -26,6 +27,7 @@ def doLogin():
             print("Giriş Yapıldı", username)
             return redirect(url_for("homepage"))
     return render_template('login.html', error=error)
+
 
 
 @app.route('/register', methods=['POST'])
@@ -57,6 +59,8 @@ def doRegister(): # Kayıt ol formu gönderince burası çağırılıyor
     else:
         return render_template("register.html", errors=errors)
 
+
+
 @app.route('/post', methods=['POST'])
 def post():
     text = request.form['turpMesaj']
@@ -67,19 +71,18 @@ def post():
     return render_template('post.html', username=session.get('username'), text=text)
 
 
-@app.route('/call', methods=['POST'])
-def call():
-    pass
-
 
 @app.route('/login', methods= ['GET'])
 def login():
     return render_template('login.html')
 
+
+
 @app.route('/register', methods=['GET'])
 def register():
-    error= None
     return render_template('register.html')
+
+
 
 @app.route("/logout")
 @login_required
@@ -87,34 +90,33 @@ def logout():
     session.pop('username', None)
     flash('Logged out.')
     return redirect(url_for('login'))
-"""
-@app.route('/like/<post_id>')
-def like(post_id):
-    username = session.get('username')
 
-    if not username:
-        abort(141, 'You must be logged in to like a post.')
 
-    User(username).like_post(post_id)
-
-    flash('Liked Post!')
-    return redirect(request.referrer)
-"""
-@app.route('/account-settings', methods=['GET'])
-def accountSettings():
-    pass
-
-@app.route('/update-account', methods=['POST'])
-def updateAccount():
-    pass
 
 @app.route('/<postId>/like', methods=['GET'])
 def like(postId):
+    username = session.get('username')
+    User(username).like(postId)
+    flash('Liked Post!')
+    return redirect(request.referrer)
     pass
 
-@app.route('/<kullaniciAdi>/follow', methods=['GET'])
-def follow(kullaniciAdi):
-    pass
+
+
+@app.route('/', methods= ['GET'])
+def homepage():
+    if not session.get('username'):
+        return redirect(url_for('login'))
+    else:
+        return render_template("index.html")
+
+
+
+@app.route('/assets/<path:path>')
+def send_js(path):
+    return send_from_directory('static/assets', path)
+
+#####################################################################################
 
 @app.route('/profile/<username>', methods=['GET'])
 def profile(username):
@@ -139,13 +141,18 @@ def profile(username):
     """
     pass
 
-@app.route('/', methods= ['GET'])
-def homepage():
-    if not session.get('username'):
-        return redirect(url_for('login'))
-    else:
-        return render_template("index.html")
+@app.route('/account-settings', methods=['GET'])
+def accountSettings():
+    pass
 
-@app.route('/assets/<path:path>')
-def send_js(path):
-    return send_from_directory('static/assets', path)
+@app.route('/update-account', methods=['POST'])
+def updateAccount():
+    pass
+
+@app.route('/<kullaniciAdi>/follow', methods=['GET'])
+def follow(kullaniciAdi):
+    pass
+
+@app.route('/call', methods=['POST'])
+def call():
+    pass
