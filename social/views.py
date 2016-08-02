@@ -71,6 +71,15 @@ def post():
     return render_template('post.html', username=session.get('username'), text=text)
 
 
+@app.route('/<postId>/like', methods=['POST'])
+def like():
+    postId = request.form['username']
+    username = session.get('username')
+    User(username).like(postId)
+
+    return redirect(request.referrer)
+
+
 
 @app.route('/login', methods= ['GET'])
 def login():
@@ -84,22 +93,15 @@ def register():
 
 
 
-@app.route("/logout")
+""" @app.route("/logout")
 @login_required
 def logout():
     session.pop('username', None)
     flash('Logged out.')
-    return redirect(url_for('login'))
+    return redirect(url_for('login'))  """
 
 
 
-@app.route('/<postId>/like', methods=['GET'])
-def like(postId):
-    username = session.get('username')
-    User(username).like(postId)
-    flash('Liked Post!')
-    return redirect(request.referrer)
-    pass
 
 
 
