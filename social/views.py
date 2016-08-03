@@ -71,12 +71,13 @@ def post():
     return render_template('post.html', username=session.get('username'), text=text)
 
 
+
 @app.route('/<postId>/like', methods=['POST'])
 def like():
     postId = request.form['username']
     username = session.get('username')
     User(username).like(postId)
-
+    print("hi", postId)
     return redirect(request.referrer)
 
 

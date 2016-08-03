@@ -47,7 +47,6 @@ class User:
 
 
 
-
     def like(self, postId, username):
         user = self.find()
         post = graph.node(postId)
