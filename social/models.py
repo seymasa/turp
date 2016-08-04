@@ -1,7 +1,8 @@
 from py2neo import Graph, Node, Relationship
 from passlib.hash import bcrypt
 import os
-import uuid
+import random
+#import uuid
 
 url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474') # Ortam değişkenlerinden çek
 username = os.environ.get('NEO4J_USERNAME', 'neo4j') # ortam değişkenlerinden çek bulamazsan 2. parametreyi kullan
@@ -39,7 +40,7 @@ class User:
         user = self.find()
         post = Node(
             "Post",
-            id=str(uuid.uuid4()),
+            id=random.randint(10000000000, 99999999999),
             text=content
         )  # post noktası oluşturulsun
         rel = Relationship(post, "POSTED_BY", user)  # oluşturulan post ile fonksiyon çağırılırken ki user bağlansın
