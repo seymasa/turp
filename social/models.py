@@ -35,7 +35,6 @@ class User:
 
 
 
-
     def post(self, content):  # Post.add çağırılırken kullanıcı ve içerik belirtilsin
         user = self.find()
         post = Node(
@@ -54,7 +53,7 @@ class User:
         post = graph.node(postId)
         rel = Relationship(user, "LIKE", post)
         if not rel:
-            graph.create(rel(username, "LIKE", post))
+            graph.merge(Relationship(username, "LIKE", post))
 
 
 
