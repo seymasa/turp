@@ -44,6 +44,7 @@ class User:
         )  # post noktası oluşturulsun
         rel = Relationship(post, "POSTED_BY", user)  # oluşturulan post ile fonksiyon çağırılırken ki user bağlansın
         graph.create(rel)  # bu bağlantıyı oluştur.
+        return post
 
 
 

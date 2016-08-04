@@ -63,22 +63,21 @@ def doRegister(): # Kayıt ol formu gönderince burası çağırılıyor
 
 @app.route('/post', methods=['POST'])
 def post():
-    text = request.form['turpMesaj']
-    if not text:
-        flash('Bisiler yazmadan gönderemezsin')
-    else:
-        User(session['username']).post(text)
-    return render_template('post.html', username=session.get('username'), text=text)
+  text = request.form['turpMesaj']
+  if not text:
+      flash('Bisiler yazmadan gönderemezsin')
+  else:
+      post = User(session['username']).post(text)
+      print(post)
+      return render_template('post.html', username=session.get('username'), post=post)
 
 
-
-@app.route('/<postId>/like', methods=['POST'])
+@app.route('/like', methods=['POST'])
 def like():
-    postId = request.form['username']
+    postId = request.form['postId']
     username = session.get('username')
-    User(username).like(postId)
-    print("hi", postId)
-    return redirect(request.referrer)
+    User(username).like(postId, username)
+    return "1"
 
 
 
