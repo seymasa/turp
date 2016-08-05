@@ -2,10 +2,13 @@ from py2neo import Graph, Node, Relationship
 from passlib.hash import bcrypt
 import os
 import random
+import dotenv
 
-url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474') # Ortam değişkenlerinden çek
-username = os.environ.get('NEO4J_USERNAME', 'neo4j') # ortam değişkenlerinden çek bulamazsan 2. parametreyi kullan
-password = os.environ.get('NEO4J_PASSWORD', '')
+dotenv.load("../../.env")
+
+url = dotenv.get('NEO4J_HOST', 'http://localhost:7474') # Ortam değişkenlerinden çek
+username = dotenv.get('NEO4J_USERNAME', 'neo4j') # ortam değişkenlerinden çek bulamazsan 2. parametreyi kullan
+password = dotenv.get('NEO4J_PASSWORD', 'neo4j')
 
 graph = Graph(url, username=username, password=password)
 class User:
