@@ -6,7 +6,7 @@ import random
 
 url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474') # Ortam değişkenlerinden çek
 username = os.environ.get('NEO4J_USERNAME', 'neo4j') # ortam değişkenlerinden çek bulamazsan 2. parametreyi kullan
-password = os.environ.get('NEO4J_PASSWORD', 'ss1510')
+password = os.environ.get('NEO4J_PASSWORD', 'os.environ.get')
 
 graph = Graph(url, username=username, password=password)
 class User:
