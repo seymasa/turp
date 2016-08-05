@@ -2,11 +2,10 @@ from py2neo import Graph, Node, Relationship
 from passlib.hash import bcrypt
 import os
 import random
-#import uuid
 
 url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474') # Ortam değişkenlerinden çek
 username = os.environ.get('NEO4J_USERNAME', 'neo4j') # ortam değişkenlerinden çek bulamazsan 2. parametreyi kullan
-password = os.environ.get('NEO4J_PASSWORD', 'os.environ.get')
+password = os.environ.get('NEO4J_PASSWORD', '')
 
 graph = Graph(url, username=username, password=password)
 class User:
@@ -24,7 +23,7 @@ class User:
 
 
     def register(self, password, name_surname, email):
-        # zaten modelde biz şifreliyormuşuz. yani metota 123456 gönderince o şifreleyip veritabanına kaydediyormuş. O yüzden tekrar şifrelemiyfcez
+        # zaten modelde biz şifreliyormuşuz. yani metota 123456 gönderince o şifreleyip veritabanına kaydediyormuş. O yüzden tekrar şifrelemiycez haydaaa :D Aydınlıklar geliyor bana bana :D
         if not self.find(): # Eğer bu kullanıcı adından kimse yoksa, kayıt yap
             user = Node('User', username=self.username, password=bcrypt.encrypt(password), name=name_surname, email=email)
             graph.create(user)
