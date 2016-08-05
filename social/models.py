@@ -50,8 +50,9 @@ class User:
 
     def like(self, postId, username):
         user = self.find()
-        post = graph.node(postId)
+        post = graph.Node(postId)
         rel = Relationship(user, "LIKE", post)
+        graph.create(rel)
         if not rel:
             graph.merge(Relationship(username, "LIKE", post))
 
