@@ -57,12 +57,14 @@ class User:
         rel = Relationship(user, "LIKE", post)
         graph.create(rel)
         print(rel)
-        """
-        if not rel:
-            graph.merge(Relationship(username, "LIKE", post))
-        """
 
 
+    def liked(self,postId):
+        user = self.find()
+        post = graph.find_one("Post", "number", postId)
+        rel = Relationship(user, "DELETE", post)
+        graph.delete(rel)
+        print(rel)
 
 
     def login_check(self, password):

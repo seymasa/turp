@@ -79,6 +79,13 @@ def like():
     User(username).like(int(postId))
     return "1"
 
+@app.route('/liked', methods=['POST'])
+def liked():
+    postId = request.form['postId']
+    username = session.get('username')
+    User(username).liked(int(postId))
+    return "0"
+
 
 
 @app.route('/login', methods= ['GET'])

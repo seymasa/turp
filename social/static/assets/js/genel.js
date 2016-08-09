@@ -28,6 +28,7 @@ $(document).on('click', '.button-like', function () {
                        $(this).html('<span class="glyphicon glyphicon-thumbs-up"></span> Liked')
                        document.getElementById("myBtn").disabled = true;
                    }
+                document.getElementById("myBtn").enabled = true;
             },
             error: function(error) {
                 console.log(error);
