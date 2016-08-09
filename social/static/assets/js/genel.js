@@ -26,7 +26,7 @@ $(document).on('click', '.button-like', function () {
             success: function(response) {
                    if(response=="1"){
                        $(this).html('<span class="glyphicon glyphicon-thumbs-up"></span> Liked')
-                       $(this).prop('disabled', true);
+                       document.getElementById("myBtn").disabled = true;
                    }
             },
             error: function(error) {

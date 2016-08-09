@@ -8,7 +8,7 @@
       <h4 class="media-heading">{{ username }}</h4>
       <p id="text{{ post.id }}">{{ post.text }}</p>
       <a href="javascript: liked()">
-      <button type="button" class="btn btn-info btn-sm button-like" data-id="{{ post.number }}"><span class="glyphicon glyphicon-thumbs-up"></span> Like </button></a>
+      <button type="button" onclick="alert('Liked!')" id="myBtn" class="btn btn-info btn-sm button-like" data-id="{{ post.number }}"><span class="glyphicon glyphicon-thumbs-up"></span> Like </button></a>
    </div>
 </div>
 
