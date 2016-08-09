@@ -41,22 +41,26 @@ class User:
         user = self.find()
         post = Node(
             "Post",
-            id=random.randint(10000000000, 99999999999),
+            number=random.randint(10000000000, 99999999999),
             text=content
         )  # post noktası oluşturulsun
         rel = Relationship(post, "POSTED_BY", user)  # oluşturulan post ile fonksiyon çağırılırken ki user bağlansın
         graph.create(rel)  # bu bağlantıyı oluştur.
         return post
 
-
-
-    def like(self, postId, username):
+    def like(self, postId):
         user = self.find()
-        post = graph.Node(postId)
+        post = graph.find_one("Post", "number", postId)
+        print(postId)
+        print(post)
+
         rel = Relationship(user, "LIKE", post)
         graph.create(rel)
+        print(rel)
+        """
         if not rel:
             graph.merge(Relationship(username, "LIKE", post))
+        """
 
 
 

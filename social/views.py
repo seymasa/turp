@@ -74,14 +74,10 @@ def post():
 
 @app.route('/like', methods=['POST'])
 def like():
-    try:
-        postId = request.form['id']
-        username = session.get('username')
-        User(username).like(postId, username)
-        return "1"
-    except:
-        return "0"
-
+    postId = request.form['postId']
+    username = session.get('username')
+    User(username).like(int(postId))
+    return "1"
 
 
 
