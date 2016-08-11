@@ -19,16 +19,20 @@ function Turpla()
 $(document).on('click', '.button-like', function () {
    var id = $(this).data("id");
    console.log(id);
+    var button = $(this);
   $.ajax({
            url:  "/like",
             data: "postId="+id,
             type: 'POST',
             success: function(response) {
+                console.log(response);
                    if(response=="1"){
-                       $(this).html('<span class="glyphicon glyphicon-thumbs-up"></span> Liked')
-                       document.getElementById("myBtn").disabled = true;
+                       button.html('<span class="glyphicon glyphicon-thumbs-up"></span> Liked');
+                       button.addClass("liked")
+                   } else {
+                       button.html('Like');
+                       button.removeClass("liked");
                    }
-                document.getElementById("myBtn").enabled = true;
             },
             error: function(error) {
                 console.log(error);
