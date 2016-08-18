@@ -1,5 +1,8 @@
 from py2neo import Graph, Node, Relationship
 from passlib.hash import bcrypt
+from time import gmtime, strftime
+from pytz import timezone
+import datetime
 import os
 import random
 import dotenv
@@ -16,7 +19,7 @@ class User:
         self.username = username
 
 
-    
+
 
 
 
@@ -41,14 +44,31 @@ class User:
 
     def post(self, content):  # Post.add çağırılırken kullanıcı ve içerik belirtilsin
         user = self.find()
+        turkey = timezone('Europe/Istanbul')
         post = Node(
             "Post",
             number=random.randint(10000000000, 99999999999),
-            text=content
+            text=content,
+            postTime=turkey.localize(datetime.datetime.now()).strftime("%Y-%m-%d %H:%M:%S")
         )  # post noktası oluşturulsun
         rel = Relationship(post, "POSTED_BY", user)  # oluşturulan post ile fonksiyon çağırılırken ki user bağlansın
         graph.create(rel)  # bu bağlantıyı oluştur.
         return post
+
+    def follow(self, other):
+        user = self.find()
+        print(other)
+        othernode = graph.find_one("User", "username", other)
+        print(othernode)
+        print(user)
+        rel = Relationship(user, "FOLLOW", othernode)
+        return graph.create(rel)
+
+    def PostList(self):
+        postQuery = "Match (cur_user: User {username: 'ahmetsa'})-[:FOLLOW]->(others: User)<- [:POSTED_BY]-(p: Post) with cur_user, p Match(l: Post)-[:POSTED_BY]->(cur_user) Return collect(p) + collect(l) as posts"
+        result = graph.run(postQuery).data()
+        print(result)
+        return "OK"
 
     def like(self, postId):
         user = self.find()
@@ -77,8 +97,27 @@ class User:
         else:
             return False
 
+    """
+    def timeline_following(self, user_id):
+        query_string =
+                start cur_user=node(%d)
+                match cur_user - [:FOLLOW]->(user) - [:POSTED_BY]->(post)
+                return
+                count(r) as cnt_like,
+                post.text as text,
+                ID(post) as post_id,
+                ID(user) as user_id,
+                user.username as username,
+                user.email as email,
+                post.date as date
+                order by post.date desc;
+            % (user_id)
 
 
+    result = neo4j.CypherQuery(graph_db, query_string).execute()
+
+    return result
+"""
 
     def login_use(self, username):
 

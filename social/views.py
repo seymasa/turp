@@ -158,6 +158,12 @@ def profile(username):
 def accountSettings():
     pass
 
+@app.route('/deneme', methods=["GET"])
+def deneme():
+    print(User(session.get('username')).PostList())
+    return "OK"
+
+
 @app.route('/update-account', methods=['POST'])
 def updateAccount():
     pass
