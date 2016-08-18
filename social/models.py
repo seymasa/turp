@@ -49,6 +49,7 @@ class User:
             "Post",
             number=random.randint(10000000000, 99999999999),
             text=content,
+            username=self.username,
             postTime=turkey.localize(datetime.datetime.now()).strftime("%Y-%m-%d %H:%M:%S")
         )  # post noktası oluşturulsun
         rel = Relationship(post, "POSTED_BY", user)  # oluşturulan post ile fonksiyon çağırılırken ki user bağlansın
@@ -65,10 +66,10 @@ class User:
         return graph.create(rel)
 
     def PostList(self):
-        postQuery = "Match (cur_user: User {username: 'ahmetsa'})-[:FOLLOW]->(others: User)<- [:POSTED_BY]-(p: Post) with cur_user, p Match(l: Post)-[:POSTED_BY]->(cur_user) Return collect(p) + collect(l) as posts"
+        postQuery = "Match (cur_user: User {username: '"+self.username+"'})-[:FOLLOW]->(others: User)<- [:POSTED_BY]-(p: Post) with cur_user, p, others Match(l: Post)-[:POSTED_BY]->(cur_user) Return collect(distinct p) + collect(distinct l) as posts"
+        print(postQuery)
         result = graph.run(postQuery).data()
-        print(result)
-        return "OK"
+        return result
 
     def like(self, postId):
         user = self.find()

@@ -73,7 +73,6 @@ def post():
 
 
 
-
 @app.route('/like', methods=['POST'])
 def like():
     postId = request.form['postId']
@@ -121,7 +120,19 @@ def homepage():
     if not session.get('username'):
         return redirect(url_for('login'))
     else:
-        return render_template("index.html")
+        posts = User(session['username']).PostList()
+
+        print("liste")
+        print(posts[0]["posts"])
+        for post in posts[0]["posts"]:
+            print(post)
+            user = User(post['username']).find()
+            post["avatar"] = "assets/images/resim.jpg"
+
+        print("yeni")
+        print(posts[0]["posts"])
+
+        return render_template("index.html", posts=posts[0]["posts"])
 
 
 

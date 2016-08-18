@@ -82,40 +82,21 @@
             </div>
          </form>
          <div id="turpListesi">
+            {% for post in posts %}
             <div class="media">
                <div class="media-left">
                   <a href="#">
-                  <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
+                  <img class="media-object img-circle" width="50" height="54" src="{{ post.avatar }}" alt="...">
                   </a>
                </div>
                <div class="media-body">
-                  <h4 class="media-heading">Seyma SARIGİL</h4>
+                  <h4 class="media-heading">{{ post.username }}</h4>
                   <!-- burayı username e göre.. -->
-                  <p>...</p>
+                  <p>{{ post.text }}</p> <p>{{ post.postTime }}</p>
+                  <a href="#" class="btn btn-info btn-sm button-like" id="myBtn" data-id="{{ post.number }}">Like</a>
                </div>
             </div>
-            <div class="media">
-               <div class="media-left">
-                  <a href="#">
-                  <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
-                  </a>
-               </div>
-               <div class="media-body">
-                  <h4 class="media-heading">Seyma SARIGİL</h4>
-                  <p>...</p>
-               </div>
-            </div>
-            <div class="media">
-               <div class="media-left">
-                  <a href="#">
-                  <img class="media-object img-circle" width="50" height="54" src="assets/images/resim.jpg" alt="...">
-                  </a>
-               </div>
-               <div class="media-body">
-                  <h4 class="media-heading">Seyma SARIGİL</h4>
-                  <p>...</p>
-               </div>
-            </div>
+            {% endfor %}
          </div>
       </div>
       <div class="col-md-3">
