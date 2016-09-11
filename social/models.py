@@ -5,13 +5,11 @@ from pytz import timezone
 import datetime
 import os
 import random
-import dotenv
 
-dotenv.load("../../.env")
 
-url = dotenv.get('NEO4J_HOST', 'http://localhost:7474') # Ortam değişkenlerinden çek
-username = dotenv.get('NEO4J_USERNAME', 'neo4j') # ortam değişkenlerinden çek bulamazsan 2. parametreyi kullan
-password = dotenv.get('NEO4J_PASSWORD', 'neo4j')
+url = 'http://localhost:7474'
+username = 'neo4j'
+password = 'seymasa'
 
 graph = Graph(url, username=username, password=password)
 class User:
